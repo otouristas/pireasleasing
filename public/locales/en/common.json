@@ -1,0 +1,17 @@
+{
+  "brand": "Aggelos Rentals",
+  "nav": {
+    "home": "Home",
+    "fleet": "Fleet",
+    "locations": "Locations",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Login"
+  },
+  "hero": {
+    "title": "Rent a car in Athens & Piraeus — no credit card, no deposit",
+    "cta": "Book now"
+  }
+}
+
+
