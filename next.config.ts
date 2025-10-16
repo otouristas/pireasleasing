@@ -10,9 +10,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    instrumentationHook: true,
-  },
 };
 
 // Injected content via Sentry wizard below
