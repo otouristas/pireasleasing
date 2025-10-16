@@ -94,9 +94,7 @@ export async function POST(req: Request) {
       transactionData = { statusId };
     }
 
-    const supabase = await getSupabaseServerClient();
-
-    // Find booking by Viva order code
+    // Find booking by Viva order code (reuse supabase from line 46)
     const { data: booking } = await supabase
       .from('bookings')
       .select('*')
