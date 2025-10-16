@@ -1,8 +1,18 @@
 import { NextResponse } from 'next/server';
 import { sendContactForm } from '@/lib/resend-email';
+import { checkRateLimit, getClientIp, createRateLimitResponse } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
-  console.log('🔍 [CONTACT API] Starting...');
+  console.log('[CONTACT API] Starting...');
+  
+  // Rate limiting check
+  const clientIp = getClientIp(req);
+  const rateLimit = await checkRateLimit(clientIp, 'contact');
+  
+  if (!rateLimit.success) {
+    console.warn(`Rate limit exceeded for contact from IP: ${clientIp}`);
+    return createRateLimitResponse(rateLimit.reset);
+  }
   
   try {
     const body = await req.json();

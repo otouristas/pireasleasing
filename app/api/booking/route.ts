@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
 import { calculatePrice } from '@/lib/pricing';
 import { createPaymentOrder } from '@/lib/viva';
+import { checkRateLimit, getClientIp, createRateLimitResponse } from '@/lib/rate-limit';
 
 const BookingPayload = z.object({
   startTs: z.string().datetime(),
@@ -23,6 +24,15 @@ const BookingPayload = z.object({
 });
 
 export async function POST(req: Request) {
+  // Rate limiting check
+  const clientIp = getClientIp(req);
+  const rateLimit = await checkRateLimit(clientIp, 'booking');
+  
+  if (!rateLimit.success) {
+    console.warn(`Rate limit exceeded for booking from IP: ${clientIp}`);
+    return createRateLimitResponse(rateLimit.reset);
+  }
+
   const body = await req.json();
   const parsed = BookingPayload.safeParse(body);
   if (!parsed.success) {

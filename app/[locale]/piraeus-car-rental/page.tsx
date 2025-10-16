@@ -17,19 +17,25 @@ export default async function PiraeusPage({ params }: { params: Promise<{ locale
       {/* Content */}
       <section className="py-16 bg-white">
         <div className="container">
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-12 mb-12">
             <div>
-              <h2 className="text-3xl font-bold text-[#0B1B33] mb-6">{locale === 'el' ? 'Γιατί Πειραιάς;' : 'Why Piraeus?'}</h2>
+              <h2 className="text-3xl font-bold text-[#0B1B33] mb-6">{locale === 'el' ? 'Γιατί Πειραιάς;' : 'Why Rent a Car at Piraeus Port?'}</h2>
               <p className="text-lg text-gray-700 mb-4">
                 {locale === 'el' 
                   ? 'Ο Πειραιάς είναι η κύρια πύλη των νησιών. Παραλάβετε το αυτοκίνητό σας απευθείας από το λιμάνι και ξεκινήστε το ταξίδι σας άμεσα.'
-                  : 'Piraeus is the main gateway to the Greek islands. Pick up your car directly from the port and start your journey immediately.'
+                  : 'Piraeus Port is Greece\'s largest passenger port and the main gateway to the Greek islands. With millions of ferry passengers annually, having a rental car ready at the port saves valuable time and eliminates transportation hassles.'
+                }
+              </p>
+              <p className="text-lg text-gray-700 mb-4">
+                {locale === 'el'
+                  ? 'Χωρίς πιστωτική κάρτα, χωρίς εγγύηση. Πληρώνετε μόνο 15% προκαταβολή online και το υπόλοιπο στην παραλαβή.'
+                  : 'Our Piraeus car rental service is designed specifically for ferry travelers. Whether you\'re heading to Santorini, Mykonos, Crete, or returning from the islands, we make car pickup effortless with direct port delivery.'
                 }
               </p>
               <p className="text-lg text-gray-700 mb-6">
                 {locale === 'el'
-                  ? 'Χωρίς πιστωτική κάρτα, χωρίς εγγύηση. Πληρώνετε μόνο 15% προκαταβολή online και το υπόλοιπο στην παραλαβή.'
-                  : 'No credit card, no deposit required. Pay only 15% deposit online and the rest at pickup.'
+                  ? 'Με παραπάνω από 15 χρόνια εμπειρίας στην ενοικίαση αυτοκινήτων στον Πειραιά, εξυπηρετούμε χιλιάδες πελάτες ετησίως που ταξιδεύουν με ferry.'
+                  : 'With over 15 years of experience serving ferry passengers, we understand the unique needs of travelers passing through Piraeus. No credit card required, no security deposit, and transparent pricing with full insurance included.'
                 }
               </p>
               <Link href={`/${locale}/booking`} className="btn-primary">
@@ -53,6 +59,57 @@ export default async function PiraeusPage({ params }: { params: Promise<{ locale
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Content - SEO Boost */}
+      <section className="py-16 bg-gray-50">
+        <div className="container max-w-4xl">
+          <h2 className="text-3xl font-bold text-[#0B1B33] mb-8">
+            {locale === 'el' ? 'Ολοκληρωμένη Εξυπηρέτηση στο Λιμάνι Πειραιά' : 'Complete Service at Piraeus Port'}
+          </h2>
+          
+          <div className="prose prose-lg max-w-none">
+            <h3 className="text-2xl font-bold text-[#0B1B33] mt-8 mb-4">
+              {locale === 'el' ? 'Πώς Λειτουργεί η Παραλαβή' : 'How Port Pickup Works'}
+            </h3>
+            <p className="text-gray-700 mb-4">
+              {locale === 'el'
+                ? 'Η διαδικασία παραλαβής στο λιμάνι Πειραιά είναι απλή και γρήγορη. Αφού κάνετε την κράτησή σας online, θα λάβετε email επιβεβαίωσης με οδηγίες για το σημείο συνάντησης. Ο αντιπρόσωπός μας θα σας περιμένει στο συμφωνημένο σημείο με το όχημα έτοιμο για παράδοση.'
+                : 'Our Piraeus port pickup process is designed for maximum convenience. After booking online, you will receive a confirmation email with detailed meeting point instructions. Our representative will meet you at the agreed location with your vehicle ready to go, fully fueled and inspected.'
+              }
+            </p>
+            
+            <h3 className="text-2xl font-bold text-[#0B1B33] mt-8 mb-4">
+              {locale === 'el' ? 'Ιδανικό για Ταξιδιώτες Ferry' : 'Perfect for Ferry Travelers'}
+            </h3>
+            <p className="text-gray-700 mb-4">
+              {locale === 'el'
+                ? 'Αν ταξιδεύετε με ferry από ή προς τα νησιά, η ενοικίαση αυτοκινήτου στον Πειραιά είναι η πιο λογική επιλογή. Αποφύγετε τα ακριβά ταξί και τα περιορισμένα δρομολόγια των δημοσίων μεταφορών. Με δικό σας αυτοκίνητο έχετε πλήρη ελευθερία κίνησης.'
+                : 'If you are traveling by ferry to or from the Greek islands, renting a car at Piraeus is the most practical choice. Avoid expensive taxis and limited public transportation schedules. With your own vehicle, you have complete freedom to explore Athens and Attica region at your own pace.'
+              }
+            </p>
+            
+            <h3 className="text-2xl font-bold text-[#0B1B33] mt-8 mb-4">
+              {locale === 'el' ? 'Οχήματα για Κάθε Ανάγκη' : 'Vehicles for Every Need'}
+            </h3>
+            <p className="text-gray-700 mb-4">
+              {locale === 'el'
+                ? 'Ο στόλος μας περιλαμβάνει οικονομικά αυτοκίνητα, SUV, και οικογενειακά οχήματα. Όλα τα αυτοκίνητα είναι καλά συντηρημένα, με κλιματισμό, και πλήρη ασφάλεια. Από μικρά city cars για δύο άτομα έως ευρύχωρα 7θέσια για οικογένειες.'
+                : 'Our fleet includes economy cars, SUVs, and family vehicles. All cars are well-maintained, air-conditioned, and fully insured. From small city cars for couples to spacious 7-seaters for families, we have the perfect vehicle for your needs. Many vehicles feature automatic transmission, GPS navigation, and modern safety features.'
+              }
+            </p>
+
+            <h3 className="text-2xl font-bold text-[#0B1B33] mt-8 mb-4">
+              {locale === 'el' ? 'Εξερευνήστε την Αττική' : 'Explore the Attica Region'}
+            </h3>
+            <p className="text-gray-700 mb-4">
+              {locale === 'el'
+                ? 'Με την έδρα μας στον Πειραιά, είμαστε ιδανικά τοποθετημένοι για να σας βοηθήσουμε να εξερευνήσετε ολόκληρη την Αττική. Επισκεφθείτε το ιστορικό κέντρο της Αθήνας, τις παραλίες της Αττικής Ριβιέρας, το Σούνιο, ή κάντε ημερήσιες εκδρομές στα γύρω μέρη.'
+                : 'Based in Piraeus, we are ideally located to help you explore the entire Attica region. Visit the historic center of Athens, the beaches of the Athenian Riviera, Cape Sounion with its ancient temple, or take day trips to nearby destinations. Having your own car gives you the flexibility to discover hidden gems and move on your own schedule.'
+              }
+            </p>
           </div>
         </div>
       </section>
