@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { updateSession } from './middleware-auth';
 
 const PUBLIC_FILE = /\.(.*)$/;
 const locales = ['en', 'el'];
@@ -15,9 +14,6 @@ function getLocale(req: NextRequest) {
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   
-  // Update auth session for all requests
-  const response = await updateSession(req);
-  
   // Skip locale redirect for dashboard, API routes, and public files
   if (
     pathname.startsWith('/_next') ||
@@ -25,7 +21,7 @@ export async function middleware(req: NextRequest) {
     pathname.includes('/api/') ||
     PUBLIC_FILE.test(pathname)
   ) {
-    return response;
+    return NextResponse.next();
   }
   
   const pathLocale = pathname.split('/').filter(Boolean)[0];
@@ -36,7 +32,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
   
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
