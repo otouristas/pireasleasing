@@ -82,12 +82,12 @@ export default async function DebugPage() {
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <h2 className="text-lg font-bold text-[#0B1B33] mb-3">Comparison Details</h2>
               <div className="space-y-2 text-sm font-mono">
-                <div>Your email: <span className="bg-white px-2 py-1 rounded">{user.email}</span></div>
-                <div>Normalized: <span className="bg-white px-2 py-1 rounded">{user.email.trim().toLowerCase()}</span></div>
-                <div>Length: <span className="bg-white px-2 py-1 rounded">{user.email.length} chars</span></div>
+                <div>Your email: <span className="bg-white px-2 py-1 rounded">{user.email || 'N/A'}</span></div>
+                <div>Normalized: <span className="bg-white px-2 py-1 rounded">{user.email?.trim().toLowerCase() || 'N/A'}</span></div>
+                <div>Length: <span className="bg-white px-2 py-1 rounded">{user.email?.length || 0} chars</span></div>
                 <div className="pt-2 space-y-1">
                   {SUPER_ADMIN_EMAILS.map((adminEmail, idx) => {
-                    const matches = user.email.trim().toLowerCase() === adminEmail.toLowerCase();
+                    const matches = user.email?.trim().toLowerCase() === adminEmail.toLowerCase();
                     return (
                       <div key={idx} className={matches ? 'text-green-700 font-bold' : 'text-gray-600'}>
                         {matches ? '✓' : '✗'} Compare with: <span className="bg-white px-2 py-1 rounded">{adminEmail}</span>

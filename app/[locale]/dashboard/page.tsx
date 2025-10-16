@@ -26,7 +26,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
         <div className="container max-w-5xl">
           <div className="space-y-4">
             {(bookings || []).length > 0 ? (
-              bookings.map((b) => (
+              (bookings || []).map((b) => (
                 <div key={b.id} className="border-2 border-[#ECEFF1] p-6 rounded-lg hover:border-[#F9C80E] transition">
                   <div className="flex justify-between items-start">
                     <div>
