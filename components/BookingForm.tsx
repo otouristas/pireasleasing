@@ -1,8 +1,11 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+
+// Lazy load heavy components
+const ReactDatePicker = lazy(() => import('react-datepicker'));
 
 type FormValues = {
   carId: string;

@@ -1,18 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { User } from '@supabase/supabase-js';
-import BookingsSection from './BookingsSection';
-import CarsSection from './CarsSection';
-import LocationsSection from './LocationsSection';
-import AddonsSection from './AddonsSection';
-import UsersSection from './UsersSection';
-import AnalyticsSection from './AnalyticsSection';
-import AvailabilitySection from './AvailabilitySection';
-import ContractsSection from './ContractsSection';
-import RemindersSection from './RemindersSection';
-import SettingsSection from './SettingsSection';
 import { getUpcomingReminders } from '@/lib/email';
+
+// Lazy load heavy dashboard sections
+const BookingsSection = lazy(() => import('./BookingsSection'));
+const CarsSection = lazy(() => import('./CarsSection'));
+const LocationsSection = lazy(() => import('./LocationsSection'));
+const AddonsSection = lazy(() => import('./AddonsSection'));
+const UsersSection = lazy(() => import('./UsersSection'));
+const AnalyticsSection = lazy(() => import('./AnalyticsSection'));
+const AvailabilitySection = lazy(() => import('./AvailabilitySection'));
+const ContractsSection = lazy(() => import('./ContractsSection'));
+const RemindersSection = lazy(() => import('./RemindersSection'));
+const SettingsSection = lazy(() => import('./SettingsSection'));
 
 interface DashboardClientProps {
   user: User;
@@ -163,16 +165,18 @@ export default function DashboardClient({ user, initialData, analytics }: Dashbo
 
       {/* Main Content */}
       <main className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {activeTab === 'analytics' && <AnalyticsSection analytics={analytics} bookings={bookings} cars={cars} />}
-        {activeTab === 'bookings' && <BookingsSection bookings={bookings} setBookings={setBookings} cars={cars} locations={locations} />}
-        {activeTab === 'availability' && <AvailabilitySection cars={cars} bookings={bookings} />}
-        {activeTab === 'cars' && <CarsSection cars={cars} setCars={setCars} />}
-        {activeTab === 'contracts' && <ContractsSection bookings={bookings} cars={cars} locations={locations} />}
-        {activeTab === 'reminders' && <RemindersSection bookings={bookings} cars={cars} locations={locations} />}
-        {activeTab === 'addons' && <AddonsSection addons={addons} setAddons={setAddons} />}
-        {activeTab === 'locations' && <LocationsSection locations={locations} setLocations={setLocations} />}
-        {activeTab === 'users' && <UsersSection users={users} setUsers={setUsers} bookings={bookings} />}
-        {activeTab === 'settings' && <SettingsSection settings={settings} setSettings={setSettings} />}
+        <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div></div>}>
+          {activeTab === 'analytics' && <AnalyticsSection analytics={analytics} bookings={bookings} cars={cars} />}
+          {activeTab === 'bookings' && <BookingsSection bookings={bookings} setBookings={setBookings} cars={cars} locations={locations} />}
+          {activeTab === 'availability' && <AvailabilitySection cars={cars} bookings={bookings} />}
+          {activeTab === 'cars' && <CarsSection cars={cars} setCars={setCars} />}
+          {activeTab === 'contracts' && <ContractsSection bookings={bookings} cars={cars} locations={locations} />}
+          {activeTab === 'reminders' && <RemindersSection bookings={bookings} cars={cars} locations={locations} />}
+          {activeTab === 'addons' && <AddonsSection addons={addons} setAddons={setAddons} />}
+          {activeTab === 'locations' && <LocationsSection locations={locations} setLocations={setLocations} />}
+          {activeTab === 'users' && <UsersSection users={users} setUsers={setUsers} bookings={bookings} />}
+          {activeTab === 'settings' && <SettingsSection settings={settings} setSettings={setSettings} />}
+        </Suspense>
       </main>
     </div>
   );
