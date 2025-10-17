@@ -29,6 +29,13 @@ export default function FleetPageEnhanced({ params }: { params: Promise<{ locale
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<'price-asc' | 'price-desc' | 'name'>('name');
+  const [filters, setFilters] = useState<FilterState>({
+    search: '',
+    category: 'all',
+    transmission: 'all',
+    seats: 'all',
+    priceRange: 'all',
+  });
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -61,12 +68,13 @@ export default function FleetPageEnhanced({ params }: { params: Promise<{ locale
     fetchCars();
   }, []);
 
-  const handleFilterChange = (filters: FilterState) => {
+  const handleFilterChange = (newFilters: FilterState) => {
+    setFilters(newFilters);
     let filtered = [...cars];
 
     // Search filter
-    if (filters.search) {
-      const searchLower = filters.search.toLowerCase();
+    if (newFilters.search) {
+      const searchLower = newFilters.search.toLowerCase();
       filtered = filtered.filter(car =>
         car.make.toLowerCase().includes(searchLower) ||
         car.model.toLowerCase().includes(searchLower) ||
@@ -75,18 +83,18 @@ export default function FleetPageEnhanced({ params }: { params: Promise<{ locale
     }
 
     // Category filter
-    if (filters.category !== 'all') {
-      filtered = filtered.filter(car => car.category === filters.category);
+    if (newFilters.category !== 'all') {
+      filtered = filtered.filter(car => car.category === newFilters.category);
     }
 
     // Transmission filter
-    if (filters.transmission !== 'all') {
-      filtered = filtered.filter(car => car.transmission === filters.transmission);
+    if (newFilters.transmission !== 'all') {
+      filtered = filtered.filter(car => car.transmission === newFilters.transmission);
     }
 
     // Seats filter
-    if (filters.seats !== 'all') {
-      const seatCount = parseInt(filters.seats);
+    if (newFilters.seats !== 'all') {
+      const seatCount = parseInt(newFilters.seats);
       if (seatCount === 7) {
         filtered = filtered.filter(car => car.seats >= 7);
       } else {
@@ -95,13 +103,13 @@ export default function FleetPageEnhanced({ params }: { params: Promise<{ locale
     }
 
     // Price range filter
-    if (filters.priceRange !== 'all') {
+    if (newFilters.priceRange !== 'all') {
       filtered = filtered.filter(car => {
         const price = parseFloat(car.price_per_day.replace(/[^0-9.]/g, ''));
-        if (filters.priceRange === '0-500') return price < 500;
-        if (filters.priceRange === '500-700') return price >= 500 && price < 700;
-        if (filters.priceRange === '700-1000') return price >= 700 && price < 1000;
-        if (filters.priceRange === '1000+') return price >= 1000;
+        if (newFilters.priceRange === '0-500') return price < 500;
+        if (newFilters.priceRange === '500-700') return price >= 500 && price < 700;
+        if (newFilters.priceRange === '700-1000') return price >= 700 && price < 1000;
+        if (newFilters.priceRange === '1000+') return price >= 1000;
         return true;
       });
     }

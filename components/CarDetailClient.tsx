@@ -3,12 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import CarAvailabilityCalendar from './CarAvailabilityCalendar';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import LazySwiper, { SwiperSlide } from './LazySwiper';
 
 interface Car {
   id: string;
@@ -93,8 +89,7 @@ export default function CarDetailClient({ car, similarCars, features, images, lo
             <div className="w-full max-w-[42rem] xl:max-w-[640px] mx-auto lg:mx-0">
               {/* Swiper Image Carousel */}
               <div className="relative h-96 sm:h-[526px] rounded-3xl overflow-hidden mb-6">
-                <Swiper
-                  modules={[Navigation, Pagination, Autoplay]}
+                <LazySwiper
                   navigation
                   pagination={{ clickable: true }}
                   autoplay={{ delay: 5000, disableOnInteraction: false }}
@@ -146,7 +141,7 @@ export default function CarDetailClient({ car, similarCars, features, images, lo
                       </SwiperSlide>
                     );
                   })}
-                </Swiper>
+                </LazySwiper>
 
                 {/* Tab Switcher (future: exterior/interior) */}
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 bg-white rounded-full shadow-lg p-2 flex gap-2">
